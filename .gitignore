@@ -12,6 +12,7 @@ data/processed/*.csv
 # User specific folders (do not touch/track)
 Docs/
 research_docs/
+.agents/
 
 # Cache and temporary files
 __pycache__/
