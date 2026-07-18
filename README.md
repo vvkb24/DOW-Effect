@@ -1,16 +1,28 @@
-# Quantitative Research: The "Weekday Effect" in Indian Power Equities
+# The "Weekday Effect" in Indian Power Equities
 
-This repository contains a quantitative research pipeline designed to investigate conditional calendar anomalies (specifically the "Weekday Effect") within the Indian power sector. 
+This repository investigates conditional calendar anomalies (specifically the "Weekday Effect") within the Indian power sector. 
 
 The primary objective was to determine whether daily stock returns exhibit predictable bias based on the day of the week, and whether that bias is influenced by latent market states (volatility, trend, sector rotation).
 
-## Scientific Verdict: Falsified
-After a rigorous statistical audit, the hypothesis was falsified. The analysis indicates that the Indian power sector is efficient at the daily frequency; historical profitability observed in backtests of the weekday anomaly appears to be driven by random clustering and data-mining rather than structural market inefficiency. 
+## Scientific Verdict: Hypothesis Falsified
 
-The research program was halted at Phase 2 due to the identification of an overfit, non-generalizable hypothesis. We exhausted the low-frequency feature space (Price, Volume, HMM Regimes, Intermarket Spreads) and identified that further analysis would require institutional flow data (FII/DII stock-specific tick data), which is unavailable publicly.
+**Within the feature families, assets, timeframe, and statistical framework investigated, we found no reproducible conditional alpha.**
 
-## Pipeline Architecture
-This repository implements a framework for hypothesis testing, designed to mitigate common quantitative research pitfalls such as lookahead bias, p-hacking, and overfitting.
+Despite progressively increasing model complexity—from unconditional weekday tests through conditional regimes, HMM state inference, and intermarket spread features—we found no evidence of economically meaningful, out-of-sample stable weekday-related alpha in Indian power-sector equities using publicly available daily data. This suggests that any exploitable inefficiency, if present, either exists outside the examined feature space, at a different temporal resolution, or requires information unavailable in public daily datasets.
+
+## Project Termination: A Methodological Success
+
+The decision was made to halt the research program at Phase 2. This was a deliberate choice to preserve scientific integrity. 
+
+When institutional flow data was deemed unavailable at the required quality, we faced two choices:
+1. **Choice A (Data Mining):** Invent OHLCV proxies derived from information already proven to have little predictive value, hoping something works.
+2. **Choice B (Scientific Termination):** Stop the project, acknowledging that the research reached a predefined stopping criterion without compromising its standards.
+
+By choosing Option B, we maintained our strict research constitution (no weakening of methodology, no loosening of significance thresholds, strict OOS validation, strict FWER correction). Finding that "there is no edge here" is a highly valuable, scientifically defensible result that successfully prevents capital deployment into an overfit, non-generalizable hypothesis.
+
+## The True Asset: The Research Engine
+
+The most important outcome of this project was not the anomaly itself, but the creation of a rigorous testing **engine**. This repository serves as a reusable framework designed to mitigate common research pitfalls.
 
 ```mermaid
 graph TD
@@ -25,12 +37,13 @@ graph TD
     H -->|FWER Corrected| I((Statistical Falsification))
 ```
 
-Key architectural features include:
-*   **Strict $t-1$ Leakage Prevention:** Every feature is aggressively lagged to ensure models only predict tomorrow's return using today's closing state.
-*   **Dynamic Market Regimes (HMM):** Integrates `hmmlearn` to map non-stationary macroeconomic volatility and trend states without lookahead bias.
-*   **Exploratory Machine Learning (XGBoost + SHAP):** Uses constrained tree-based models and SHAP value extraction to search for non-linear interactions between market states and calendar days.
-*   **Clustered Panel Econometrics:** Uses `linearmodels` (Fixed Effects, Clustered Standard Errors) to estimate true causal effects while controlling for market beta (Nifty 50).
-*   **Statistical Discipline:** Implements Bonferroni Family-Wise Error Rate (FWER) corrections and Seasonal-Aware Walk-Forward Out-Of-Sample (OOS) validation.
+Key architectural features built into the engine include:
+*   **Leakage-Safe Pipeline:** Strict $t-1$ lagging to ensure models only predict tomorrow's return using today's closing state.
+*   **Dynamic Market Regimes (HMM):** Integrates `hmmlearn` to map non-stationary macroeconomic states without lookahead bias.
+*   **Exploratory Discovery Layer:** Uses constrained XGBoost models and SHAP value extraction to search for non-linear interactions.
+*   **Panel Econometrics:** Uses `linearmodels` (Fixed Effects, Clustered Standard Errors) to estimate true causal effects while controlling for market beta.
+*   **Statistical Discipline:** Implements Bonferroni Family-Wise Error Rate (FWER) corrections and Walk-Forward Out-Of-Sample validation.
+*   **Reproducible Workflow:** Strict research governance, experiment registries, and hypothesis ledgers.
 
 ## Repository Structure
 *   `src/doweffect/`: Core modules.
@@ -41,9 +54,13 @@ Key architectural features include:
 *   `data/`: Data storage (raw and processed Parquet files are git-ignored; see `data/audit/audit_report.csv` for the dataset timeline spanning 2005-2026).
 *   `tests/`: `pytest` suite for integrity and leakage checks.
 
+## Future Research Directions
+Having exhausted unconditional weekday, volatility, trend, liquidity, HMM, and intermarket spread features on daily OHLCV data, future meaningful directions involve qualitatively different dimensions:
+1. **Intraday Microstructure:** (1-minute, 5-minute, order-book data).
+2. **Options & Volatility Risk Premia:** (Implied vs. realized volatility, Greeks, skew).
+3. **Cross-Sectional Statistical Arbitrage:** (Cointegration, pairs trading, residual mean reversion).
+
 ## Setup and Execution
 1.  Initialize a virtual environment: `python -m venv venv`
-2.  Activate the environment and install requirements: `pip install -r requirements.txt` (Note: ensure you have `linearmodels`, `hmmlearn`, `xgboost`, `shap`, `pandas`, `yfinance`, and `pytest` installed).
+2.  Activate the environment and install requirements: `pip install -r requirements.txt`
 3.  To run the full HMM-based discovery pipeline on the universe: `python scripts/run_hmm_discovery.py`
-
-*Note: The `Docs/` directory is an external user-specific folder and is ignored by Git.*
