@@ -1,5 +1,7 @@
 import logging
 import pandas as pd
+import numpy as np
+import re
 from doweffect.stats.panel import estimate_panel_effects
 
 logger = logging.getLogger(__name__)
@@ -39,6 +41,7 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
         return {"stable": False, "reason": "Insufficient history"}
         
     oos_tstats = []
+    oos_predictive_metrics = []
     
     for i in range(initial_train_years, len(years), step_years):
         train_years = years[:i]
@@ -53,18 +56,46 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
         try:
             # Estimate on training data
             train_res = estimate_panel_effects(train_df, formula)
-            # Predict on test data
-            preds = train_res.predict(test_df)
             
-            # Since we are testing if the *interaction* persists, we can fit the 
-            # model strictly on the out-of-sample data and check if the sign and 
-            # significance hold, OR check if out-of-sample predictive R2 is > 0.
-            # Institutional standard for inference is sub-period stability of the coefficient.
-            test_res = estimate_panel_effects(test_df, formula)
+            # Extract relevant columns and drop NAs for test_df
+            cols = re.sub(r'[~+*:]', ' ', formula).split()
+            cols = [c for c in cols if c in test_df.columns]
+            valid_test_df = test_df.dropna(subset=cols)
+            
+            if valid_test_df.empty:
+                continue
+
+            # Predict on test data using train_res
+            preds = train_res.predict(valid_test_df)
+            target_col = formula.split('~')[0].strip()
+            y_test = valid_test_df[target_col]
+            
+            # Compute predictive OOS metrics
+            errors = y_test - preds
+            rmse = float(np.sqrt((errors ** 2).mean()))
+            mae = float(errors.abs().mean())
+            bias = float(errors.mean())
+            sst = ((y_test - y_test.mean()) ** 2).sum()
+            r2 = float(1 - ((errors ** 2).sum() / sst)) if sst != 0 else np.nan
+            
+            # We ONLY run the coefficient refit AFTER calculating the predictive metrics.
+            # Institutional standard for structural inference is sub-period stability of the coefficient.
+            test_res = estimate_panel_effects(valid_test_df, formula)
             
             if interaction_term and interaction_term in test_res.tvalues:
                 t_stat = test_res.tvalues[interaction_term]
                 oos_tstats.append(t_stat)
+                
+                oos_predictive_metrics.append({
+                    "train_period": f"{min(train_years)}-{max(train_years)}",
+                    "test_period": f"{min(test_years)}-{max(test_years)}",
+                    "t_stat": t_stat,
+                    "rmse": rmse,
+                    "mae": mae,
+                    "r2": r2,
+                    "bias": bias
+                })
+                
                 
         except Exception as e:
             logger.debug(f"Walk-forward failed for window {test_years}: {e}")
@@ -82,5 +113,6 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
         "stable": is_stable,
         "dominant_sign_ratio": dominant_sign_ratio,
         "oos_tstats": oos_tstats,
+        "predictive_metrics": oos_predictive_metrics,
         "reason": "Stable" if is_stable else "Sign flips dynamically across OOS periods"
     }
