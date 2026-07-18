@@ -4,9 +4,9 @@ This repository investigates conditional calendar anomalies (specifically the "W
 
 The primary objective was to determine whether daily stock returns exhibit predictable bias based on the day of the week, and whether that bias is influenced by latent market states (volatility, trend, sector rotation).
 
-## Scientific Verdict: Hypothesis Falsified
+## Scientific Verdict: No Robust Weekday Alpha
 
-**Within the feature families, assets, timeframe, and statistical framework investigated, we found no reproducible conditional alpha.**
+**Within the feature families, assets, timeframe, and statistical framework investigated, we found no reproducible conditional alpha related to the day of the week.**
 
 Despite progressively increasing model complexity—from unconditional weekday tests through conditional regimes, HMM state inference, and intermarket spread features—we found no evidence of economically meaningful, out-of-sample stable weekday-related alpha in Indian power-sector equities using publicly available daily data. This suggests that any exploitable inefficiency, if present, either exists outside the examined feature space, at a different temporal resolution, or requires information unavailable in public daily datasets.
 
