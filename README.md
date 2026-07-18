@@ -38,10 +38,6 @@ Key architectural features include:
     *   `ml/`: Exploratory XGBoost discovery and SHAP interaction extraction.
     *   `stats/`: Econometric confirmation testing (Panel OLS) and Walk-Forward OOS splitting.
 *   `scripts/`: Execution runners (e.g., `run_hmm_discovery.py`, `run_spreads_discovery.py`).
-*   `research_docs/`: Comprehensive institutional memory of the research process, including:
-    *   `RESEARCH_LEDGER.md`: The complete log of every hypothesis tested and its statistical verdict.
-    *   `EXPERIMENT_REGISTRY.md`: Tracking for all discovery runs.
-    *   `RESEARCH_CONTRACT.md`: The governance rules ensuring strict falsification logic.
 *   `data/`: Data storage (raw and processed Parquet files are git-ignored to save space; see `data/audit/audit_report.csv` for the dataset timeline spanning 2005-2026).
 *   `tests/`: `pytest` suite ensuring architectural integrity and leakage safety.
 
