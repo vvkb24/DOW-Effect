@@ -1,0 +1,121 @@
+tickers:
+  - symbol_yf: "NTPC.NS"
+    symbol_nse: "NTPC"
+    name: "NTPC Limited"
+    sector: "Power Generation"
+    listing_date: "2004-11-05"
+    fno: true
+    lot_size: 3000
+
+  - symbol_yf: "POWERGRID.NS"
+    symbol_nse: "POWERGRID"
+    name: "Power Grid Corporation of India Limited"
+    sector: "Power Transmission"
+    listing_date: "2007-10-05"
+    fno: true
+    lot_size: 1600
+
+  - symbol_yf: "NHPC.NS"
+    symbol_nse: "NHPC"
+    name: "NHPC Limited"
+    sector: "Power Generation"
+    listing_date: "2009-09-01"
+    fno: true
+    lot_size: 1800
+
+  - symbol_yf: "RECLTD.NS"
+    symbol_nse: "RECLTD"
+    name: "REC Limited"
+    sector: "Power Finance"
+    listing_date: "2008-03-12"
+    fno: true
+    lot_size: 4000
+
+  - symbol_yf: "PFC.NS"
+    symbol_nse: "PFC"
+    name: "Power Finance Corporation Limited"
+    sector: "Power Finance"
+    listing_date: "2007-02-23"
+    fno: true
+    lot_size: 3100
+
+  - symbol_yf: "SJVN.NS"
+    symbol_nse: "SJVN"
+    name: "SJVN Limited"
+    sector: "Power Generation"
+    listing_date: "2010-05-20"
+    fno: false
+    lot_size: null
+
+  - symbol_yf: "ADANIPOWER.NS"
+    symbol_nse: "ADANIPOWER"
+    name: "Adani Power Limited"
+    sector: "Power Generation"
+    listing_date: "2009-08-20"
+    fno: false
+    lot_size: null
+
+  - symbol_yf: "TATAPOWER.NS"
+    symbol_nse: "TATAPOWER"
+    name: "Tata Power Company Limited"
+    sector: "Integrated Power"
+    listing_date: "1995-02-08"
+    fno: true
+    lot_size: 3375
+
+  - symbol_yf: "JSWENERGY.NS"
+    symbol_nse: "JSWENERGY"
+    name: "JSW Energy Limited"
+    sector: "Power Generation"
+    listing_date: "2010-01-04"
+    fno: false
+    lot_size: null
+
+  - symbol_yf: "TORNTPOWER.NS"
+    symbol_nse: "TORNTPOWER"
+    name: "Torrent Power Limited"
+    sector: "Integrated Power"
+    listing_date: "2006-12-07"
+    fno: true
+    lot_size: 750
+
+  - symbol_yf: "NLCINDIA.NS"
+    symbol_nse: "NLCINDIA"
+    name: "NLC India Limited"
+    sector: "Power Generation"
+    listing_date: "1995-02-08"
+    fno: true
+    lot_size: 1600
+
+  - symbol_yf: "CESC.NS"
+    symbol_nse: "CESC"
+    name: "CESC Limited"
+    sector: "Integrated Power"
+    listing_date: "1995-02-08"
+    fno: false
+    lot_size: null
+
+  - symbol_yf: "IEX.NS"
+    symbol_nse: "IEX"
+    name: "Indian Energy Exchange Limited"
+    sector: "Power Exchange"
+    listing_date: "2017-10-23"
+    fno: true
+    lot_size: 3750
+
+  - symbol_yf: "COALINDIA.NS"
+    symbol_nse: "COALINDIA"
+    name: "Coal India Limited"
+    sector: "Fuel"
+    listing_date: "2010-11-04"
+    fno: true
+    lot_size: 2100
+
+indices:
+  - symbol_yf: "^CNXENERGY"
+    name: "Nifty Energy"
+    type: "sector"
+  - symbol_yf: "^NSEI"
+    name: "Nifty 50"
+  - symbol_yf: "^NSEBANK"
+    name: "Nifty Bank"

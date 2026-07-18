@@ -1,0 +1,15 @@
+fno_universe:
+  - "NTPC"
+  - "POWERGRID"
+  - "ADANIPOWER"
+  - "TATAPOWER"
+  - "COALINDIA"
+
+assumptions:
+  pricing_model: "BSM"
+  interest_rate: 0.065  # 6.5% risk free rate (approx 10Y Indian G-Sec)
+  dividend_yield_method: "historical"
+
+data_sources:
+  iv_proxy: "India VIX"
+  fallback: "Realized Volatility"

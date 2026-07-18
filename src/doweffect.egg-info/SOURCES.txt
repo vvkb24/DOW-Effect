@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/doweffect/__init__.py
+src/doweffect.egg-info/PKG-INFO
+src/doweffect.egg-info/SOURCES.txt
+src/doweffect.egg-info/dependency_links.txt
+src/doweffect.egg-info/requires.txt
+src/doweffect.egg-info/top_level.txt
+src/doweffect/data/__init__.py
+src/doweffect/data/auditor.py
+src/doweffect/data/cross_validator.py
+src/doweffect/data/downloader.py
+src/doweffect/data/validator.py
+tests/test_auditor.py
+tests/test_downloader.py

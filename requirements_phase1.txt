@@ -1,0 +1,9 @@
+yfinance
+pandas
+numpy
+pandas_market_calendars
+pyyaml
+tqdm
+pytest
+pyarrow
+scipy

@@ -1,0 +1,7 @@
+figure_format: "png"
+dpi: 300
+figsize: [10, 6]
+
+templates:
+  html: "standard"
+  pdf: "reportlab"

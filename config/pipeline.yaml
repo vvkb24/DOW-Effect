@@ -1,0 +1,15 @@
+global:
+  random_seed: 42
+  date_range_start: "2005-01-01"
+  date_range_end: null  # null means today
+  logging_level: "INFO"
+
+paths:
+  raw: "data/raw/"
+  processed: "data/processed/"
+  cache: "data/cache/"
+  audit: "data/audit/"
+  figures: "outputs/figures/"
+  reports: "outputs/reports/"
+  csv: "outputs/csv/"
+  dashboard: "outputs/dashboard/"

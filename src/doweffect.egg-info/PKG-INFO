@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: doweffect
+Version: 0.1.0
+Summary: Day-of-Week Effect Analysis for Indian Power Sector Equities and Options
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: yfinance
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: statsmodels
+Requires-Dist: scikit-learn
+Requires-Dist: xgboost
+Requires-Dist: lightgbm
+Requires-Dist: catboost
+Requires-Dist: torch
+Requires-Dist: shap
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: plotly
+Requires-Dist: reportlab
+Requires-Dist: pandas_market_calendars
+Requires-Dist: pyyaml
+Requires-Dist: tqdm
+Requires-Dist: pyarrow
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: coverage; extra == "dev"
+
+# Day-of-Week Effect in Indian Power Sector
+
+This repository contains the full research pipeline for investigating the Day-of-Week effect in Indian power sector equities.
+
+## Reproducibility Instructions
+
+### 1. Setup Environment
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### 2. Run Phases
+Run the phases sequentially:
+```bash
+python scripts/run_phase1.py
+python scripts/run_phase2.py
+python scripts/run_phase3.py
+python scripts/run_phase4.py
+python scripts/run_phase5.py
+```
+
+Check `outputs/reports/` for generated reports.

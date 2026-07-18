@@ -1,0 +1,24 @@
+brokerage:
+  delivery: 0.0  # discount broker model
+  intraday: 0.0003  # 0.03% or Rs 20, keeping it simple as bps
+
+stt:
+  delivery_buy: 0.001
+  delivery_sell: 0.001
+  intraday_sell: 0.00025
+  options_sell: 0.000625
+
+gst: 0.18  # 18% on brokerage + exchange charges
+
+exchange_charges:
+  nse_equity: 0.0000345
+  nse_options: 0.00053
+
+sebi_fees: 0.000001
+stamp_duty:
+  delivery_buy: 0.00015
+  intraday_buy: 0.00003
+
+slippage:
+  base_bps: 0.0005  # 5 bps minimum
+  volume_impact_multiplier: 0.1  # size/ADV * multiplier
