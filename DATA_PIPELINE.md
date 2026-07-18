@@ -15,6 +15,11 @@ The primary data source for this project is public End-of-Day (EOD) OHLCV (Open,
 
 The core constraint of the feature engineering pipeline is strict $t-1$ safety. To ensure that statistical models do not inadvertently train on future information (lookahead bias), every feature used to explain the return on day $t$ is calculated using only information available at the close of day $t-1$.
 
+### How $t-1$ Safety is Achieved
+In practice, this is implemented using standard vectorized shifting operations in Pandas. First, all features (e.g., a 20-day moving average of volatility) are calculated using the raw data up to day $t$. Then, the entire feature matrix is explicitly shifted forward by one day (`df.shift(1)`) before it is merged with the target variable (the return on day $t$). 
+
+This mechanical offset guarantees that the target variable $y_t$ (Return on Tuesday) is strictly regressed against the feature vector $X_{t-1}$ (Moving Average at the close of Monday). If a calculation naturally involves a forward lookahead (like HMM smoothing), we restrict the model to only use the "filtered" state (which only sees past data) rather than the "smoothed" state (which sees the entire dataset).
+
 ### Engineered Feature Families
 
 1.  **Calendar Features:** One-hot encoded variables representing the day of the week.
