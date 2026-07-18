@@ -67,8 +67,11 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
 
             # Predict on test data using train_res
             preds = train_res.predict(valid_test_df)
+            
+            # Align y_test to preds index (statsmodels drops NAs silently during predict)
+            preds = preds.dropna()
             target_col = formula.split('~')[0].strip()
-            y_test = valid_test_df[target_col]
+            y_test = valid_test_df.loc[preds.index, target_col]
             
             # Compute predictive OOS metrics
             errors = y_test - preds
@@ -81,6 +84,8 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
             # We ONLY run the coefficient refit AFTER calculating the predictive metrics.
             # Institutional standard for structural inference is sub-period stability of the coefficient.
             test_res = estimate_panel_effects(valid_test_df, formula)
+            print(f"DEBUG: interaction_term is '{interaction_term}'")
+            print(f"DEBUG: test_res.tvalues.keys() are {list(test_res.tvalues.keys())}")
             
             if interaction_term and interaction_term in test_res.tvalues:
                 t_stat = test_res.tvalues[interaction_term]
@@ -98,7 +103,7 @@ def walk_forward_validation(df: pd.DataFrame, formula: str, initial_train_years:
                 
                 
         except Exception as e:
-            logger.debug(f"Walk-forward failed for window {test_years}: {e}")
+            logger.exception(f"Walk-forward failed for window {test_years}: {e}")
             
     if not oos_tstats:
         return {"stable": False, "reason": "Could not extract OOS t-stats"}
