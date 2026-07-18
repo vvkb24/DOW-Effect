@@ -44,6 +44,7 @@ Key architectural features built into the engine include:
 *   **Reproducible Workflow:** Strict research governance, experiment registries, and hypothesis ledgers.
 
 ## Repository Structure
+*   `DATA_PIPELINE.md`: A detailed explanation of the data acquisition (Yahoo Finance), timeframe (2005-2026), and strict $t-1$ feature engineering process (HMM regimes, volatility, intermarket spreads).
 *   `src/doweffect/`: Core modules.
     *   `features/`: HMM regime mapping, event proximity, returns, and intermarket spread construction.
     *   `ml/`: Exploratory XGBoost discovery and SHAP interaction extraction.
