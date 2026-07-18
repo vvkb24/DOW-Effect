@@ -12,13 +12,11 @@ Despite progressively increasing model complexity—from unconditional weekday t
 
 ## Project Termination: A Methodological Success
 
-The decision was made to halt the research program at Phase 2. This was a deliberate choice to preserve scientific integrity. 
+The decision was made to halt the research program after exhausting available daily price and volume features. This was a deliberate choice to preserve scientific integrity. 
 
-When institutional flow data was deemed unavailable at the required quality, we faced two choices:
-1. **Choice A (Data Mining):** Invent OHLCV proxies derived from information already proven to have little predictive value, hoping something works.
-2. **Choice B (Scientific Termination):** Stop the project, acknowledging that the research reached a predefined stopping criterion without compromising its standards.
+When high-quality institutional flow data was deemed unavailable, the project faced a methodological crossroads: either invent derived proxies from existing low-frequency data, or terminate the search. 
 
-By choosing Option B, we maintained our strict research constitution (no weakening of methodology, no loosening of significance thresholds, strict OOS validation, strict FWER correction). Finding that "there is no edge here" is a highly valuable, scientifically defensible result that successfully prevents capital deployment into an overfit, non-generalizable hypothesis.
+Choosing to invent proxies from data already proven to lack predictive power introduces severe data mining risks. Instead, the project was concluded upon reaching a predefined stopping criterion. Maintaining strict methodological standards—such as avoiding proxy mining, retaining strict out-of-sample validation, and applying stringent multiple-testing corrections—ensures that the finding of "no robust edge" remains a highly valuable, scientifically defensible result. This discipline successfully prevents capital deployment into overfit, non-generalizable hypotheses.
 
 ## The True Asset: The Research Engine
 
