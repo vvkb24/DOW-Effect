@@ -12,6 +12,19 @@ The research program was formally halted at Phase 2 to **prevent capital deploym
 ## Pipeline Architecture
 While the hypothesis was false, the outcome is a success. This repository now serves as a robust, reusable engine for hypothesis testing, immunized against common quantitative research pitfalls (lookahead bias, p-hacking, overfitting).
 
+```mermaid
+graph TD
+    A[Raw OHLCV Data] --> B(Strict t-1 Lagging)
+    B --> C[Feature Engineering]
+    C --> D{Hidden Markov Models}
+    D -->|Volatility Regimes| E(Exploratory ML)
+    D -->|Trend Regimes| E
+    E -->|XGBoost + SHAP| F[Candidate Interactions]
+    F --> G{Econometric Confirmation}
+    G -->|Clustered Panel OLS| H[Walk-Forward Validation]
+    H -->|FWER Corrected| I((Statistical Falsification))
+```
+
 Key architectural features include:
 *   **Strict $t-1$ Leakage Prevention:** Every feature is aggressively lagged to ensure models only predict tomorrow's return using today's closing state.
 *   **Dynamic Market Regimes (HMM):** Integrates `hmmlearn` to map non-stationary macroeconomic volatility and trend states without lookahead bias.
