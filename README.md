@@ -10,6 +10,24 @@ The primary objective was to determine whether daily stock returns exhibit predi
 
 Despite progressively increasing model complexity—from unconditional weekday tests through conditional regimes, HMM state inference, and intermarket spread features—we found no evidence of economically meaningful, out-of-sample stable weekday-related alpha in Indian power-sector equities using publicly available daily data. This suggests that any exploitable inefficiency, if present, either exists outside the examined feature space, at a different temporal resolution, or requires information unavailable in public daily datasets.
 
+## Statistical Results & Metrics Explained
+
+### 1. Adjusted P-Values (FWER / Bonferroni)
+During the conditional phases, the primary metric for statistical significance was the **Adjusted P-Value**. To prevent p-hacking across hundreds of combinations, we applied the Family-Wise Error Rate (FWER) via the Bonferroni Correction.
+* **Key Finding:** Most stocks hit exactly `p = 1.000` (100% probability of random noise). Even when the pooled universe passed FWER in-sample (`p = 0.0463`), it immediately failed out-of-sample.
+
+### 2. SHAP Scores (Feature Importance)
+During the Machine Learning discovery phase, candidate interactions were ranked by their **SHAP Scores**.
+* **Key Finding:** In Phase 2.3, the top intermarket spread interaction scored `0.000015`. A SHAP score this astronomically low indicates the ML engine was completely starved of signal and forced to model random noise.
+
+### 3. Walk-Forward Coefficient Stability (t-stats)
+In the final verification, we measured the **OOS t-statistic** of the anomaly across three different out-of-sample time windows.
+* **Key Finding:** The anomaly produced a t-stat of `6.595` in 2015-2016, flipped to `-1.834` in 2017-2018, and decayed to `0.349` in 2019-2020. This 33% sign flip rate is the definition of **Regime Decay**. The anomaly is structurally unstable.
+
+### 4. Predictive OOS Metrics
+To prove the anomaly was untradeable, we locked the training coefficients and used them to predict unseen future data.
+* **Key Finding:** The Out-of-Sample $R^2$ was strictly negative (e.g., `-0.0079`). A negative OOS $R^2$ is mathematical proof that the model is literally worse at predicting returns than just guessing the historical average. RMSE and MAE hovered around 78-97 basis points, completely overwhelming any theoretical daily signal.
+
 ## Project Termination: A Methodological Success
 
 The decision was made to halt the research program after exhausting available daily price and volume features. This was a deliberate choice to preserve scientific integrity. 
